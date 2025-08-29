@@ -1,0 +1,671 @@
+﻿@implements IUnitAwareComponent
+@inject ILogger<CartographicProjectionEdit> logger
+@inject ISnackbar Snackbar
+
+<MudText Class="mt-4 mb-4" Typo="Typo.h6">Edit Cartographic Projection</MudText>
+<MudContainer Class="d-flex flex-row mt-4 mb-4">
+    <MudButton Class="me-1" Variant="Variant.Filled" Color="Color.Success" OnClick="Update">Update</MudButton>
+    <MudButton Class="me-1" Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+</MudContainer>
+
+<MudExpansionPanels Class="mt-4 mb-4">
+    <MudExpansionPanel Text="Description" Expanded="true">
+        <MudContainer Class="d-flex flex-column" style="max-width: 500px; width: 100%;">
+            <MudTextField @bind-Value="@name" Label="Name" Variant="Variant.Filled"></MudTextField>
+            <MudTextField @bind-Value="@descr" Label="Description" Variant="Variant.Filled"></MudTextField>
+            @if (GeodeticDatums != null && GeodeticDatums.Count > 0)
+            {
+                <MudSelect @bind-Value="@geodeticDatum" Label="Geodetic Datum" Variant="Variant.Filled" ToStringFunc="@(s => s?.Name)">
+                    @foreach (var sph in GeodeticDatums)
+                    {
+                        <MudSelectItem Value="@sph">@sph.Name</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            @if (CartographicProjectionTypes != null && CartographicProjectionTypes.Count > 0)
+            {
+                <MudSelect @bind-Value="@cartographicProjectionType" Label="Cartographic Projection" Variant="Variant.Filled" ToStringFunc="@(s => s?.Projection.ToString())">
+                    @foreach (var sph in CartographicProjectionTypes)
+                    {
+                        <MudSelectItem Value="@sph">@sph.Projection</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseZone)
+            {
+                <MudNumericField @bind-Value="@zone" Min="1" Max="60" T="int" Label="Zone" Variant="Variant.Filled" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseSouth)
+            {
+                <MudSelect T="northSouthEnum" @bind-Value="@northSouth" Label="Hemisphere" Variant="Variant.Filled">
+                    @foreach (var hem in Enum.GetValues<northSouthEnum>())
+                    {
+                        <MudSelectItem Value="@hem">@hem</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLatitudeOrigin)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Latitude Origin"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="latitudeOrigin"
+                                           SIValueNullableChanged="@(val => latitudeOrigin = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLatitude1)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Latitude 1"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="latitude1"
+                                           SIValueNullableChanged="@(val => latitude1 = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLatitude2)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Latitude 2"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="latitude2"
+                                           SIValueNullableChanged="@(val => latitude2 = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLatitudeTrueScale)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Latitude True Scale"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="latitudeTrueScale"
+                                           SIValueNullableChanged="@(val => latitudeTrueScale = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLongitudeOrigin)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Longitude Origin"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="longitudeOrigin"
+                                           SIValueNullableChanged="@(val => longitudeOrigin = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseScaling)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Scaling"
+                                           QuantityName="DimensionLessStandard"
+                                           SIValueNullable="scaling"
+                                           SIValueNullableChanged="@(val => scaling = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseFalseEastingNorthing)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="False Easting"
+                                           QuantityName="PositionDrilling"
+                                           SIValueNullable="falseEasting"
+                                           SIValueNullableChanged="@(val => falseEasting = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseFalseEastingNorthing)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="False Northing"
+                                           QuantityName="PositionDrilling"
+                                           SIValueNullable="falseNorthing"
+                                           SIValueNullableChanged="@(val => falseNorthing = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseHyperbolic)
+            {
+                <MudSwitch @bind-Value="isHyperbolic" Color="Color.Primary" Label="Is Hyperbolic" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseProjectionHeight)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Projection Height"
+                                           QuantityName="DepthDrilling"
+                                           SIValueNullable="projectionHeight"
+                                           SIValueNullableChanged="@(val => projectionHeight = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseHeightViewPoint)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Height Viewpoint"
+                                           QuantityName="DepthDrilling"
+                                           SIValueNullable="heightViewPoint"
+                                           SIValueNullableChanged="@(val => heightViewPoint = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseSweep)
+            {
+                <MudSelect T="AxisType" @bind-Value="@sweep" Label="Sweep" Variant="Variant.Filled">
+                    @foreach (var val in Enum.GetValues<AxisType>())
+                    {
+                        <MudSelectItem Value="@val">@val</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseAzimuthCentralLine)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Azimuth of Central Line"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="azimuthCentralLine"
+                                           SIValueNullableChanged="@(val => azimuthCentralLine = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseWeight)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Weight"
+                                           QuantityName="DimensionLessStandard"
+                                           SIValueNullable="weight"
+                                           SIValueNullableChanged="@(val => weight = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLandsat)
+            {
+                <MudNumericField @bind-Value="@landsat" Min="1" Max="5" T="int" Label="Landsat" Variant="Variant.Filled" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UsePath)
+            {
+                <MudNumericField @bind-Value="@path" Min="0" T="int" Label="Landsat" Variant="Variant.Filled" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseAlpha)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Azimuth Central Line at Center Point"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="alpha"
+                                           SIValueNullableChanged="@(val => alpha = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseAlpha)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Azimuth Central Line Rectified Bearing"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="gamma"
+                                           SIValueNullableChanged="@(val => gamma = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLongitude1)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Longitude 1"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="longitude1"
+                                           SIValueNullableChanged="@(val => longitude1 = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLongitude2)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Longitude 2"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="longitude2"
+                                           SIValueNullableChanged="@(val => longitude2 = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseLongitudeCentralPoint)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Longitude Central Point"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="longitudeCentralPoint"
+                                           SIValueNullableChanged="@(val => longitudeCentralPoint = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseNoOffset)
+            {
+                <MudSwitch @bind-Value="noOffset" Color="Color.Primary" Label="No offset" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseNoRotation)
+            {
+                <MudSwitch @bind-Value="noRotation" Color="Color.Primary" Label="No rotation" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseAreaNormalizationTransform)
+            {
+                <MudSelect T="AreaNormalizationTransformType" @bind-Value="@areaNormalizationTransform" Label="Area Normalization" Variant="Variant.Filled">
+                    @foreach (var val in Enum.GetValues<AreaNormalizationTransformType>())
+                    {
+                        <MudSelectItem Value="@val">@val</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UsePegLatitude)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Peg Latitude"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="pegLatitude"
+                                           SIValueNullableChanged="@(val => pegLatitude = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UsePegLongitude)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Peg Longitude"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="pegLongitude"
+                                           SIValueNullableChanged="@(val => pegLongitude = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UsePegHeading)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Peg Heading"
+                                           QuantityName="PlaneAngleDrilling"
+                                           SIValueNullable="pegHeading"
+                                           SIValueNullableChanged="@(val => pegHeading = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseN)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="n"
+                                           QuantityName="DimensionLessStandard"
+                                           SIValueNullable="n"
+                                           SIValueNullableChanged="@(val => n = val)" />
+            }
+            @if (cartographicProjectionType != null && cartographicProjectionType.UseQ)
+            {
+                <MudInputWithUnitAdornment VariantType="Variant.Text"
+                                           QuantityLabel="Q"
+                                           QuantityName="DimensionLessStandard"
+                                           SIValueNullable="q"
+                                           SIValueNullableChanged="@(val => q = val)" />
+            }
+
+        </MudContainer>
+    </MudExpansionPanel>
+</MudExpansionPanels>
+@code {
+    [CascadingParameter]
+    private MudUnitAndReferenceChoiceTag? Parent { get; set; }
+
+    [Parameter]
+    public CartographicProjection? CurrentCartographicProjection { get; set; }
+
+    [Parameter]
+    public List<GeodeticDatum>? GeodeticDatums { get; set; }
+
+    [Parameter]
+    public List<CartographicProjectionType>? CartographicProjectionTypes { get; set; }
+
+    [Parameter]
+    public Action? OnUpdate { get; set; }
+
+    private enum northSouthEnum { North, South }
+    // Local variables used to retrieve user-defined parameters
+    private GeodeticDatum? geodeticDatum;
+    private CartographicProjectionType? cartographicProjectionType;
+    private string? name;
+    private string? descr;
+    private int zone = 0;
+    private northSouthEnum northSouth = northSouthEnum.North;
+    private double? latitudeOrigin = null;
+    private double? latitude1 = null;
+    private double? latitude2 = null;
+    private double? latitudeTrueScale = null;
+    private double? longitudeOrigin = null;
+    private double? scaling = null;
+    private double? falseEasting = null;
+    private double? falseNorthing = null;
+    private bool isHyperbolic = false;
+    private double? projectionHeight = null;
+    private double? heightViewPoint = null;
+    private AxisType sweep = AxisType.None;
+    private double? azimuthCentralLine = null;
+    private double? weight = null;
+    private int landsat = 1;
+    private int path = 0;
+    private double? alpha = null;
+    private double? gamma = null;
+    private double? longitude1 = null;
+    private double? longitude2 = null;
+    private double? longitudeCentralPoint = null;
+    private bool noOffset = false;
+    private bool noRotation = false;
+    private AreaNormalizationTransformType areaNormalizationTransform = AreaNormalizationTransformType.None;
+    private double? pegLatitude = null;
+    private double? pegLongitude = null;
+    private double? pegHeading = null;
+    private double? n = null;
+    private double? q = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (Parent == null)
+                throw new ArgumentNullException(nameof(Parent), "TargetEdit page must exist within a MudUnitAndReferenceChoiceTag");
+            Parent.Add(this);
+            ManageUnits();
+
+            if (CurrentCartographicProjection != null && CurrentCartographicProjection.MetaInfo != null)
+            {
+                geodeticDatum = null;
+                if (CurrentCartographicProjection.GeodeticDatumID != null && CurrentCartographicProjection.GeodeticDatumID != Guid.Empty)
+                {
+                    GeodeticDatum? datum = await APIUtils.ClientGeodeticDatum.GetGeodeticDatumByIdAsync(CurrentCartographicProjection.GeodeticDatumID.Value);
+                    geodeticDatum = datum;
+                }
+                cartographicProjectionType = null;
+                if (CartographicProjectionTypes != null)
+                {
+                    foreach (var t in CartographicProjectionTypes)
+                    {
+                        if (t != null && t.Projection == CurrentCartographicProjection.ProjectionType)
+                        {
+                            cartographicProjectionType = t;
+                            break;
+                        }
+                    }
+                }
+                name = CurrentCartographicProjection.Name;
+                descr = CurrentCartographicProjection.Description;
+                if (cartographicProjectionType != null)
+                {
+                    if (cartographicProjectionType.UseZone)
+                    {
+                        zone = CurrentCartographicProjection.Zone;
+                    }
+                    if (cartographicProjectionType.UseSouth)
+                    {
+                        northSouth = (CurrentCartographicProjection.IsSouth) ? northSouthEnum.South : northSouthEnum.North;
+                    }
+                    if (cartographicProjectionType.UseLatitudeOrigin)
+                    {
+                        latitudeOrigin = CurrentCartographicProjection.LatitudeOrigin;
+                    }
+                    if (cartographicProjectionType.UseLatitude1)
+                    {
+                        latitude1 = CurrentCartographicProjection.Latitude1;
+                    }
+                    if (cartographicProjectionType.UseLatitude2)
+                    {
+                        latitude2 = CurrentCartographicProjection.Latitude2;
+                    }
+                    if (cartographicProjectionType.UseLatitudeTrueScale)
+                    {
+                        latitudeTrueScale = CurrentCartographicProjection.LatitudeTrueScale;
+                    }
+                    if (cartographicProjectionType.UseLongitudeOrigin)
+                    {
+                        longitudeOrigin = CurrentCartographicProjection.LongitudeOrigin;
+                    }
+                    if (cartographicProjectionType.UseScaling)
+                    {
+                        scaling = CurrentCartographicProjection.Scaling;
+                    }
+                    if (cartographicProjectionType.UseFalseEastingNorthing)
+                    {
+                        falseEasting = CurrentCartographicProjection.FalseEasting;
+                    }
+                    if (cartographicProjectionType.UseFalseEastingNorthing)
+                    {
+                        falseNorthing = CurrentCartographicProjection.FalseNorthing;
+                    }
+                    if (cartographicProjectionType.UseHyperbolic)
+                    {
+                        isHyperbolic = CurrentCartographicProjection.IsHyperbolic;
+                    }
+                    if (cartographicProjectionType.UseProjectionHeight)
+                    {
+                        projectionHeight = CurrentCartographicProjection.ProjectionHeight;
+                    }
+                    if (cartographicProjectionType.UseHeightViewPoint)
+                    {
+                        heightViewPoint = CurrentCartographicProjection.HeightViewPoint;
+                    }
+                    if (cartographicProjectionType.UseSweep)
+                    {
+                        sweep = CurrentCartographicProjection.Sweep;
+                    }
+                    if (cartographicProjectionType.UseAzimuthCentralLine)
+                    {
+                        azimuthCentralLine = CurrentCartographicProjection.AzimuthCentralLine;
+                    }
+                    if (cartographicProjectionType.UseWeight)
+                    {
+                        weight = CurrentCartographicProjection.Weight;
+                    }
+                    if (cartographicProjectionType.UseLandsat && CurrentCartographicProjection.Landsat != null)
+                    {
+                        landsat = CurrentCartographicProjection.Landsat.Value;
+                    }
+                    if (cartographicProjectionType.UsePath && CurrentCartographicProjection.Path != null)
+                    {
+                        path = CurrentCartographicProjection.Path.Value;
+                    }
+                    if (cartographicProjectionType.UseAlpha)
+                    {
+                        alpha = CurrentCartographicProjection.Alpha;
+                    }
+                    if (cartographicProjectionType.UseGamma)
+                    {
+                        gamma = CurrentCartographicProjection.Gamma;
+                    }
+                    if (cartographicProjectionType.UseLongitude1)
+                    {
+                        longitude1 = CurrentCartographicProjection.Longitude1;
+                    }
+                    if (cartographicProjectionType.UseLongitude2)
+                    {
+                        longitude2 = CurrentCartographicProjection.Longitude2;
+                    }
+                    if (cartographicProjectionType.UseLongitudeCentralPoint)
+                    {
+                        longitudeCentralPoint = CurrentCartographicProjection.LongitudeCentralPoint;
+                    }
+                    if (cartographicProjectionType.UseNoOffset)
+                    {
+                        noOffset = CurrentCartographicProjection.NoOffset;
+                    }
+                    if (cartographicProjectionType.UseNoRotation)
+                    {
+                        noRotation = CurrentCartographicProjection.NoRotation;
+                    }
+                    if (cartographicProjectionType.UseAreaNormalizationTransform)
+                    {
+                        areaNormalizationTransform = CurrentCartographicProjection.AreaNormalizationTransform;
+                    }
+                    if (cartographicProjectionType.UsePegLatitude)
+                    {
+                        pegLatitude = CurrentCartographicProjection.PegLatitude;
+                    }
+                    if (cartographicProjectionType.UsePegLongitude)
+                    {
+                        pegLongitude = CurrentCartographicProjection.PegLongitude;
+                    }
+                    if (cartographicProjectionType.UsePegHeading)
+                    {
+                        pegHeading = CurrentCartographicProjection.PegHeading;
+                    }
+                    if (cartographicProjectionType.UseN)
+                    {
+                        n = CurrentCartographicProjection.N;
+                    }
+                    if (cartographicProjectionType.UseQ)
+                    {
+                        q = CurrentCartographicProjection.Q;
+                    }
+                }
+            }
+            else
+            {
+                logger.LogError("Current Cartographic Projection is null or badly formed");
+                Snackbar.Add("Current Cartographic Projection is null or badly formed", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Problem on Cartographic Projection initialization");
+            Snackbar.Add("Problem on Cartographic Projection initialization", Severity.Error);
+        }
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+
+    public void ManageUnits()
+    {
+
+    }
+
+    private async Task Update()
+    {
+        try
+        {
+            if (CurrentCartographicProjection != null && CurrentCartographicProjection.MetaInfo != null)
+            {
+                Guid geodeticDatumID = Guid.Empty;
+                if (geodeticDatum != null && geodeticDatum.MetaInfo != null && geodeticDatum.MetaInfo.ID != Guid.Empty)
+                {
+                    geodeticDatumID = geodeticDatum.MetaInfo.ID;
+                }
+                ProjectionType projectionType = ProjectionType.Unknown;
+                if (cartographicProjectionType != null)
+                {
+                    projectionType = cartographicProjectionType.Projection;
+                }
+                CartographicProjection cartographicProjection = new()
+                {
+                    MetaInfo = CurrentCartographicProjection.MetaInfo,
+                    Name = name,
+                    Description = descr,
+                    CreationDate = CurrentCartographicProjection.CreationDate,
+                    LastModificationDate = DateTimeOffset.UtcNow,
+                    GeodeticDatumID = geodeticDatumID,
+                    ProjectionType = projectionType,
+                };
+                if (cartographicProjectionType != null)
+                {
+                    if (cartographicProjectionType.UseZone)
+                    {
+                        cartographicProjection.Zone = zone;
+                    }
+                    if (cartographicProjectionType.UseSouth)
+                    {
+                        cartographicProjection.IsSouth = northSouth == northSouthEnum.South;
+                    }
+                    if (cartographicProjectionType.UseLatitudeOrigin)
+                    {
+                        CurrentCartographicProjection.LatitudeOrigin = latitudeOrigin;
+                    }
+                    if (cartographicProjectionType.UseLatitude1)
+                    {
+                        CurrentCartographicProjection.Latitude1 = latitude1;
+                    }
+                    if (cartographicProjectionType.UseLatitude2)
+                    {
+                        CurrentCartographicProjection.Latitude2 = latitude2;
+                    }
+                    if (cartographicProjectionType.UseLatitudeTrueScale)
+                    {
+                        CurrentCartographicProjection.LatitudeTrueScale = latitudeTrueScale;
+                    }
+                    if (cartographicProjectionType.UseLongitudeOrigin)
+                    {
+                        CurrentCartographicProjection.LongitudeOrigin = longitudeOrigin;
+                    }
+                    if (cartographicProjectionType.UseScaling)
+                    {
+                        CurrentCartographicProjection.Scaling = scaling;
+                    }
+                    if (cartographicProjectionType.UseFalseEastingNorthing)
+                    {
+                        CurrentCartographicProjection.FalseEasting = falseEasting;
+                    }
+                    if (cartographicProjectionType.UseFalseEastingNorthing)
+                    {
+                        CurrentCartographicProjection.FalseNorthing = falseNorthing;
+                    }
+                    if (cartographicProjectionType.UseHyperbolic)
+                    {
+                        CurrentCartographicProjection.IsHyperbolic = isHyperbolic;
+                    }
+                    if (cartographicProjectionType.UseProjectionHeight)
+                    {
+                        CurrentCartographicProjection.ProjectionHeight = projectionHeight;
+                    }
+                    if (cartographicProjectionType.UseHeightViewPoint)
+                    {
+                        CurrentCartographicProjection.HeightViewPoint = heightViewPoint;
+                    }
+                    if (cartographicProjectionType.UseSweep)
+                    {
+                        CurrentCartographicProjection.Sweep = sweep;
+                    }
+                    if (cartographicProjectionType.UseAzimuthCentralLine)
+                    {
+                        CurrentCartographicProjection.AzimuthCentralLine = azimuthCentralLine;
+                    }
+                    if (cartographicProjectionType.UseWeight)
+                    {
+                        CurrentCartographicProjection.Weight = weight;
+                    }
+                    if (cartographicProjectionType.UseLandsat)
+                    {
+                        CurrentCartographicProjection.Landsat = landsat;
+                    }
+                    if (cartographicProjectionType.UsePath)
+                    {
+                        CurrentCartographicProjection.Path = path;
+                    }
+                    if (cartographicProjectionType.UseAlpha)
+                    {
+                        CurrentCartographicProjection.Alpha = alpha;
+                    }
+                    if (cartographicProjectionType.UseGamma)
+                    {
+                        CurrentCartographicProjection.Gamma = gamma;
+                    }
+                    if (cartographicProjectionType.UseLongitude1)
+                    {
+                        CurrentCartographicProjection.Longitude1 = longitude1;
+                    }
+                    if (cartographicProjectionType.UseLongitude2)
+                    {
+                        CurrentCartographicProjection.Longitude2 = longitude2;
+                    }
+                    if (cartographicProjectionType.UseLongitudeCentralPoint)
+                    {
+                        CurrentCartographicProjection.LongitudeCentralPoint = longitudeCentralPoint;
+                    }
+                    if (cartographicProjectionType.UseNoOffset)
+                    {
+                        CurrentCartographicProjection.NoOffset = noOffset;
+                    }
+                    if (cartographicProjectionType.UseNoRotation)
+                    {
+                        CurrentCartographicProjection.NoRotation = noRotation;
+                    }
+                    if (cartographicProjectionType.UseAreaNormalizationTransform)
+                    {
+                        CurrentCartographicProjection.AreaNormalizationTransform = areaNormalizationTransform;
+                    }
+                    if (cartographicProjectionType.UsePegLatitude)
+                    {
+                        CurrentCartographicProjection.PegLatitude = pegLatitude;
+                    }
+                    if (cartographicProjectionType.UsePegLongitude)
+                    {
+                        CurrentCartographicProjection.PegLongitude = pegLongitude;
+                    }
+                    if (cartographicProjectionType.UsePegHeading)
+                    {
+                        CurrentCartographicProjection.PegHeading = pegHeading;
+                    }
+                    if (cartographicProjectionType.UseN)
+                    {
+                        CurrentCartographicProjection.N = n;
+                    }
+                    if (cartographicProjectionType.UseQ)
+                    {
+                        CurrentCartographicProjection.Q = q;
+                    }
+                }
+                await APIUtils.ClientCartographicProjection.PutCartographicProjectionByIdAsync(CurrentCartographicProjection.MetaInfo.ID, cartographicProjection);
+                logger.LogInformation("Updated the Cartographic Projection successfully");
+                Snackbar.Add("Updated the Cartographic Projection successfully", Severity.Success);
+            }
+            else
+            {
+                logger.LogWarning("Problem while updating the Cartographic Projection");
+                Snackbar.Add("Problem while updating the Cartographic Projection", Severity.Warning);
+            }
+        }
+        catch (ApiException ex)
+        {
+            logger.LogError(ex, "Problem while updating the Cartographic Projection");
+            Snackbar.Add("Problem while updating the Cartographic Projection", Severity.Warning);
+        }
+    }
+
+    private void Cancel()
+    {
+        OnUpdate?.Invoke();
+    }
+}
