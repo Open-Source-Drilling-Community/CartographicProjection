@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using OSDC.DotnetLibraries.General.DataManagement;
 using Microsoft.Data.Sqlite;
 using System.Text.Json;
 using NORCE.Drilling.CartographicProjection.ModelShared;
@@ -294,7 +293,7 @@ namespace NORCE.Drilling.CartographicProjection.Service.Managers
             if (connection != null)
             {
                 var command = connection.CreateCommand();
-                command.CommandText = "SELECT MetaInfo, Name, Description, CreationDate, LastModificationDate FROM CartographicConversionSetTable";
+                command.CommandText = "SELECT MetaInfo, Name, Description, CreationDate, LastModificationDate, CartographicProjectionName, CartographicProjectionDescription FROM CartographicConversionSetTable";
                 try
                 {
                     using var reader = command.ExecuteReader();

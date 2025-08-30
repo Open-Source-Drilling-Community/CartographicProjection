@@ -521,7 +521,7 @@
         "tags": [
           "CartographicProjectionUsageStatistics"
         ],
-        "operationId": "GetUsageStatistics",
+        "operationId": "GetCartographicProjectionUsageStatistics",
         "responses": {
           "200": {
             "description": "OK",
@@ -970,6 +970,26 @@
         }
       }
     },
+    "/GeodeticDatumUsageStatistics": {
+      "get": {
+        "tags": [
+          "GeodeticDatumUsageStatistics"
+        ],
+        "operationId": "GetGeodeticDatumUsageStatistics",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageStatisticsGeodeticDatum"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Spheroid": {
       "get": {
         "tags": [
@@ -1157,26 +1177,6 @@
                   "items": {
                     "$ref": "#/components/schemas/Spheroid"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/UsageStatistics": {
-      "get": {
-        "tags": [
-          "UsageStatistics"
-        ],
-        "operationId": "GetUsageStatistics",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsageStatistics"
                 }
               }
             }
@@ -1863,7 +1863,7 @@
           }
         }
       },
-      "UsageStatistics": {
+      "UsageStatisticsGeodeticDatum": {
         "type": "object",
         "properties": {
           "LastSaved": {

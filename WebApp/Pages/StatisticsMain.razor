@@ -54,7 +54,7 @@ else
     {
         try
         {
-            statistics_ = await APIUtils.ClientCartographicProjection.GetUsageStatisticsAsync();
+            statistics_ = await APIUtils.ClientCartographicProjection.GetCartographicProjectionUsageStatisticsAsync();
             if (statistics_ != null)
             {
                 totalCount_ = 0;

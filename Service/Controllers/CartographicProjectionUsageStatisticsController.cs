@@ -23,11 +23,11 @@ namespace NORCE.Drilling.CartographicProjection.Service.Controllers
         }
 
         /// <summary>
-        /// Returns the usage statistics present in the microservice database at endpoint CartographicProjection/api/UsageStatistics
+        /// Returns the usage statistics present in the microservice database at endpoint CartographicProjection/api/CartographicProjectionUsageStatistics
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name = "GetUsageStatistics")]
-        public ActionResult<UsageStatisticsCartographicProjection> GetUsageStatistics()
+        [HttpGet(Name = "GetCartographicProjectionUsageStatistics")]
+        public ActionResult<UsageStatisticsCartographicProjection> GetCartographicProjectionUsageStatistics()
         {
             if (UsageStatisticsCartographicProjection.Instance != null)
             {
