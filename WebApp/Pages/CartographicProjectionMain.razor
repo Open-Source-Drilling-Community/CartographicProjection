@@ -47,14 +47,11 @@
 </MudUnitAndReferenceChoiceTag>
 
 @code {
-    // GeodeticDatum related variables
     private List<CartographicProjectionLight> cartographicProjectionList = new();
     private List<CartographicProjectionLight> selectedCartographicProjectionList = new();
     private List<GeodeticDatum> geodeticDatumList = new();
     private List<CartographicProjectionType> cartographicProjectionTypeList = new();
     private CartographicProjection? currentCartographicProjection;
-    private List<object?>? inputDataList = new(); // container used to pass input data to the CartographicProjectionEdit razor component without specifying content types (required by µservice Template)
-    // MyBaseData related variables
     // UI related variables
     public bool isHiddenMainPanel;
     public bool isHiddenEditPanel;

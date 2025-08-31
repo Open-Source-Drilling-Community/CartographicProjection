@@ -383,7 +383,7 @@
     private double? toLongitudeWGS84;
     private double? toVerticalDepthGeodeticWGS84;
     private double? gridConvergenceFromCarto;
-    // List of available datums
+    // List of available cartographic projections
     private List<CartographicProjectionLight>? cartographicProjectionList = null;
 
     // Conversion methods
@@ -391,7 +391,7 @@
     {
         if (fromLatitudeDatum != null && fromLongitudeDatum != null && fromVerticalDepthGeodeticDatum != null && targetCartographicProjectionFromDatum != null)
         {
-            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicProjection/" };
+            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicConversionSet/" };
             DateTimeOffset creationDate = DateTimeOffset.UtcNow;
             CartographicConversionSet conversionSet = new()
             {
@@ -449,7 +449,7 @@
     {
         if (fromLatitudeWGS84 != null && fromLongitudeWGS84 != null && fromVerticalDepthGeodeticWGS84 != null && targetCartographicProjectionFromDatum != null)
         {
-            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicProjection/" };
+            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicConversionSet/" };
             DateTimeOffset creationDate = DateTimeOffset.UtcNow;
             CartographicConversionSet conversionSet = new()
             {
@@ -508,7 +508,7 @@
     {
         if (fromNorthing != null && fromEasting != null && fromVerticalDepthCartographicProjection != null && sourceCartographicProjection != null)
         {
-            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicProjection/" };
+            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicConversionSet/" };
             DateTimeOffset creationDate = DateTimeOffset.UtcNow;
             CartographicConversionSet conversionSet = new()
             {
