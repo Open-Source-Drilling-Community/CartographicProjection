@@ -267,7 +267,7 @@
     private MudUnitAndReferenceChoiceTag? Parent { get; set; }
 
     [Parameter]
-    public CartographicProjection? CurrentCartographicProjection { get; set; }
+    public NORCE.Drilling.CartographicProjection.ModelShared.CartographicProjection? CurrentCartographicProjection { get; set; }
 
     [Parameter]
     public List<GeodeticDatum>? GeodeticDatums { get; set; }
@@ -510,7 +510,7 @@
                 {
                     projectionType = cartographicProjectionType.Projection;
                 }
-                CartographicProjection cartographicProjection = new()
+                NORCE.Drilling.CartographicProjection.ModelShared.CartographicProjection cartographicProjection = new()
                 {
                     MetaInfo = CurrentCartographicProjection.MetaInfo,
                     Name = name,

@@ -16,7 +16,7 @@ The WebApp project is a Blazor Server application that provides a UI for the Car
   - `dotnet run --project WebApp/WebApp.csproj`
   - Base path: `http://localhost:8080/CartographicProjection/webapp`
   - Main pages:
-    - `/CartographicProjectionMain` — list/edit projections
+    - `/CartographicProjection` — list/edit projections
     - `/CartographicConverter` — run conversions
 
 - Configuration (service endpoints):
@@ -35,7 +35,7 @@ The WebApp project is a Blazor Server application that provides a UI for the Car
 
 ## Usage Examples
 
-- Browse projections: navigate to `/CartographicProjectionMain` to view, add, or delete projections. Editing uses `Pages/CartographicProjectionEdit.razor:1`.
+- Browse projections: navigate to `/CartographicProjection` to view, add, or delete projections. Editing uses `Pages/CartographicProjectionEdit.razor:1`.
 - Convert coordinates: navigate to `/CartographicConverter` to enter geodetic/cartographic inputs and convert using selected projection. Components use OSDC unit inputs (e.g., `MudInputWithUnitAdornment`).
 
 ## Dependencies

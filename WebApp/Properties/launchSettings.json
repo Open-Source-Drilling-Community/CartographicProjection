@@ -3,7 +3,7 @@
     "WebApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "CartographicProjection/webapp/CartographicProjectionMain",
+      "launchUrl": "CartographicProjection/webapp/CartographicProjection",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -13,7 +13,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": false,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/CartographicProjection/webapp/CartographicProjectionMain",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/CartographicProjection/webapp/CartographicProjection",
       "publishAllPorts": true,
       "useSSL": true
     },

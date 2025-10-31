@@ -1,5 +1,5 @@
-﻿@page "/CartographicProjectionMain"
-@inject ILogger<CartographicProjectionMain> logger
+﻿@page "/CartographicProjection"
+@inject ILogger<CartographicProjection> logger
 @inject ISnackbar Snackbar
 
 <MudUnitAndReferenceChoiceTag HttpHost=@APIUtils.HostNameUnitConversion
@@ -51,7 +51,7 @@
     private List<CartographicProjectionLight> selectedCartographicProjectionList = new();
     private List<GeodeticDatum> geodeticDatumList = new();
     private List<CartographicProjectionType> cartographicProjectionTypeList = new();
-    private CartographicProjection? currentCartographicProjection;
+    private NORCE.Drilling.CartographicProjection.ModelShared.CartographicProjection? currentCartographicProjection;
     // UI related variables
     public bool isHiddenMainPanel;
     public bool isHiddenEditPanel;
@@ -156,7 +156,7 @@
         {
             MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicProjection/" };
             DateTimeOffset creationDate = DateTimeOffset.UtcNow;
-            CartographicProjection currentCartographicProjection = new()
+            NORCE.Drilling.CartographicProjection.ModelShared.CartographicProjection currentCartographicProjection = new()
             {
                 MetaInfo = metaInfo,
                 Name = DataUtils.DEFAULT_NAME_CartographicProjection,
