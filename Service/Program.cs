@@ -43,7 +43,7 @@ builder.Services.AddMcpServer(options =>
 {
     options.ServerInfo = new Implementation
     {
-        Name = "UnitConversionService",
+        Name = "CartographicProjectionService",
         Version = serverVersion
     };
     options.Capabilities = new ServerCapabilities
