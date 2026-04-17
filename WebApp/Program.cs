@@ -1,9 +1,17 @@
 using MudBlazor;
 using MudBlazor.Services;
+using NORCE.Drilling.CartographicProjection.WebApp;
+using NORCE.Drilling.CartographicProjection.WebPages;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+WebPagesHostConfiguration webPagesConfiguration = new()
+{
+    CartographicProjectionHostURL = builder.Configuration["CartographicProjectionHostURL"] ?? string.Empty,
+    GeodeticDatumHostURL = builder.Configuration["GeodeticDatumHostURL"] ?? string.Empty,
+    UnitConversionHostURL = builder.Configuration["UnitConversionHostURL"] ?? string.Empty,
+};
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices(config =>
@@ -17,32 +25,22 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.ShowTransitionDuration = 500;
     config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 });
+builder.Services.AddSingleton<ICartographicProjectionWebPagesConfiguration>(webPagesConfiguration);
+builder.Services.AddSingleton<ICartographicProjectionAPIUtils, CartographicProjectionAPIUtils>();
 
 var app = builder.Build();
 
 app.UseForwardedHeaders();
-// This needs to match with what is defined in "charts/<helm-chart-name>/templates/values.yaml ingress.Path
 app.UsePathBase("/CartographicProjection/webapp");
 
-if (!String.IsNullOrEmpty(builder.Configuration["CartographicProjectionHostURL"]))
-    NORCE.Drilling.CartographicProjection.WebApp.Configuration.CartographicProjectionHostURL = builder.Configuration["CartographicProjectionHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["GeodeticDatumHostURL"]))
-    NORCE.Drilling.CartographicProjection.WebApp.Configuration.GeodeticDatumHostURL = builder.Configuration["GeodeticDatumHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["UnitConversionHostURL"]))
-    NORCE.Drilling.CartographicProjection.WebApp.Configuration.UnitConversionHostURL = builder.Configuration["UnitConversionHostURL"];
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.MapBlazorHub();

@@ -1,5 +1,6 @@
-﻿@page "/Statistics"
+@page "/Statistics"
 @inject ILogger<StatisticsMain> logger
+@inject ICartographicProjectionAPIUtils Api
 @inject ISnackbar Snackbar
 
 @if (statistics_ == null)
@@ -54,7 +55,7 @@ else
     {
         try
         {
-            statistics_ = await APIUtils.ClientCartographicProjection.GetCartographicProjectionUsageStatisticsAsync();
+            statistics_ = await Api.ClientCartographicProjection.GetCartographicProjectionUsageStatisticsAsync();
             if (statistics_ != null)
             {
                 totalCount_ = 0;
@@ -275,3 +276,4 @@ else
     }
 
 }
+

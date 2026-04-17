@@ -1,5 +1,6 @@
-﻿@implements IUnitAwareComponent
+@implements IUnitAwareComponent
 @inject ILogger<CartographicProjectionEdit> logger
+@inject ICartographicProjectionAPIUtils Api
 @inject ISnackbar Snackbar
 
 <MudText Class="mt-4 mb-4" Typo="Typo.h6">Edit Cartographic Projection</MudText>
@@ -330,7 +331,7 @@
                 geodeticDatum = null;
                 if (CurrentCartographicProjection.GeodeticDatumID != null && CurrentCartographicProjection.GeodeticDatumID != Guid.Empty)
                 {
-                    GeodeticDatum? datum = await APIUtils.ClientGeodeticDatum.GetGeodeticDatumByIdAsync(CurrentCartographicProjection.GeodeticDatumID.Value);
+                    GeodeticDatum? datum = await Api.ClientGeodeticDatum.GetGeodeticDatumByIdAsync(CurrentCartographicProjection.GeodeticDatumID.Value);
                     geodeticDatum = datum;
                 }
                 cartographicProjectionType = null;
@@ -647,7 +648,7 @@
                         CurrentCartographicProjection.Q = q;
                     }
                 }
-                await APIUtils.ClientCartographicProjection.PutCartographicProjectionByIdAsync(CurrentCartographicProjection.MetaInfo.ID, cartographicProjection);
+                await Api.ClientCartographicProjection.PutCartographicProjectionByIdAsync(CurrentCartographicProjection.MetaInfo.ID, cartographicProjection);
                 logger.LogInformation("Updated the Cartographic Projection successfully");
                 Snackbar.Add("Updated the Cartographic Projection successfully", Severity.Success);
             }

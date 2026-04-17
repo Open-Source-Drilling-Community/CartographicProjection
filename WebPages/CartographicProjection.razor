@@ -1,9 +1,10 @@
-﻿@page "/CartographicProjection"
+@page "/CartographicProjection"
 @inject ILogger<CartographicProjection> logger
+@inject ICartographicProjectionAPIUtils Api
 @inject ISnackbar Snackbar
 
-<MudUnitAndReferenceChoiceTag HttpHost=@APIUtils.HostNameUnitConversion
-                              HttpBasePath=@APIUtils.HostBasePathUnitConversion
+<MudUnitAndReferenceChoiceTag HttpHost=@Api.HostNameUnitConversion
+                              HttpBasePath=@Api.HostBasePathUnitConversion
                               HttpController="UnitSystem/"
                               UnitSystemName="@DataUtils.UnitAndReferenceParameters.UnitSystemName"
                               UnitSystemNameChanged="@DataUtils.UpdateUnitSystemName">
@@ -67,10 +68,10 @@
             currentCartographicProjection = null;
 
             // Starting all loading tasks asynchronously
-            logger.LogInformation("Trying to load list of Cartographic Projections from client: " + APIUtils.HostNameCartographicProjection);
-            var cartographicProjectionTask = APIUtils.ClientCartographicProjection.GetAllCartographicProjectionLightAsync();
-            var cartographicProjectionTypeTask = APIUtils.ClientCartographicProjection.GetAllCartographicProjectionTypeAsync();
-            var geodeticDatumTask = APIUtils.ClientGeodeticDatum.GetAllGeodeticDatumAsync();
+            logger.LogInformation("Trying to load list of Cartographic Projections from client: " + Api.HostNameCartographicProjection);
+            var cartographicProjectionTask = Api.ClientCartographicProjection.GetAllCartographicProjectionLightAsync();
+            var cartographicProjectionTypeTask = Api.ClientCartographicProjection.GetAllCartographicProjectionTypeAsync();
+            var geodeticDatumTask = Api.ClientGeodeticDatum.GetAllGeodeticDatumAsync();
 
             List<Task> loadingTaskList = new List<Task> { cartographicProjectionTask, cartographicProjectionTypeTask, geodeticDatumTask };
 
@@ -154,7 +155,7 @@
     {
         try
         {
-            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = APIUtils.HostNameCartographicProjection, HttpHostBasePath = APIUtils.HostBasePathCartographicProjection, HttpEndPoint = "CartographicProjection/" };
+            MetaInfo metaInfo = new() { ID = Guid.NewGuid(), HttpHostName = Api.HostNameCartographicProjection, HttpHostBasePath = Api.HostBasePathCartographicProjection, HttpEndPoint = "CartographicProjection/" };
             DateTimeOffset creationDate = DateTimeOffset.UtcNow;
             NORCE.Drilling.CartographicProjection.ModelShared.CartographicProjection currentCartographicProjection = new()
             {
@@ -165,7 +166,7 @@
                 LastModificationDate = creationDate,
 
             };
-            await APIUtils.ClientCartographicProjection.PostCartographicProjectionAsync(currentCartographicProjection);
+            await Api.ClientCartographicProjection.PostCartographicProjectionAsync(currentCartographicProjection);
             await OnInitializedAsync();
             // Find the newly created datum in the refreshed list
             var addedProjection = cartographicProjectionList.FirstOrDefault(d => d.MetaInfo?.ID == currentCartographicProjection.MetaInfo?.ID);
@@ -198,7 +199,7 @@
     {
         try
         {
-            currentCartographicProjection = await APIUtils.ClientCartographicProjection.GetCartographicProjectionByIdAsync(id);
+            currentCartographicProjection = await Api.ClientCartographicProjection.GetCartographicProjectionByIdAsync(id);
             if (currentCartographicProjection != null)
             {
                 isHiddenMainPanel = true;
@@ -222,7 +223,7 @@
     {
         try
         {
-            await APIUtils.ClientCartographicProjection.DeleteCartographicProjectionByIdAsync(id);
+            await Api.ClientCartographicProjection.DeleteCartographicProjectionByIdAsync(id);
             await OnInitializedAsync();
         }
         catch (Exception ex)
@@ -237,7 +238,7 @@
         {
             foreach (CartographicProjectionLight cartographicProjection in selectedCartographicProjectionList)
             {
-                await APIUtils.ClientCartographicProjection.DeleteCartographicProjectionByIdAsync(cartographicProjection.MetaInfo.ID);
+                await Api.ClientCartographicProjection.DeleteCartographicProjectionByIdAsync(cartographicProjection.MetaInfo.ID);
             }
             await OnInitializedAsync();
         }
@@ -290,3 +291,4 @@
         await OnInitializedAsync();
     }
 }
+
