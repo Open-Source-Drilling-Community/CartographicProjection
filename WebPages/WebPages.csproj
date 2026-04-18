@@ -5,7 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <RootNamespace>NORCE.Drilling.CartographicProjection.WebPages</RootNamespace>
+	<AssemblyName>NORCE.Drilling.CartographicProjection.WebPages</AssemblyName>
+	<RootNamespace>NORCE.Drilling.CartographicProjection.WebPages</RootNamespace>
     <PackageId>NORCE.Drilling.CartographicProjection.WebPages</PackageId>
     <Title>NORCE.Drilling.CartographicProjection.WebPages</Title>
     <Authors>Eric Cayeux</Authors>
