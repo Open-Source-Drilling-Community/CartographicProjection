@@ -27,6 +27,7 @@ builder.Services.AddMudServices(config =>
 });
 builder.Services.AddSingleton<ICartographicProjectionWebPagesConfiguration>(webPagesConfiguration);
 builder.Services.AddSingleton<ICartographicProjectionAPIUtils, CartographicProjectionAPIUtils>();
+builder.Services.AddExternalWebPages(webPagesConfiguration);
 
 var app = builder.Build();
 
