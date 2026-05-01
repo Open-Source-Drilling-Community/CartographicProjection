@@ -32,7 +32,19 @@ builder.Services.AddExternalWebPages(webPagesConfiguration);
 var app = builder.Build();
 
 app.UseForwardedHeaders();
-app.UsePathBase("/CartographicProjection/webapp");
+
+app.Use(async (context, next) => {
+    var path = context.Request.Path.Value;
+    var pathLower = path.ToLower();
+    // Normalize entire path to lowercase for case-insensitive endpoint matching
+    if (pathLower.StartsWith("/cartographicprojection/webapp", System.StringComparison.Ordinal))
+    {
+        context.Request.Path = pathLower;
+    }
+    await next();
+});
+var basePath = "/cartographicprojection/webapp";
+app.UsePathBase(basePath);
 
 if (!app.Environment.IsDevelopment())
 {
@@ -48,3 +60,5 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -58,9 +58,20 @@ builder.Services.AddLegacyMcpTool<PingMcpTool>();
 
 var app = builder.Build();
 
-var basePath = "/CartographicProjection/api";
+var basePath = "/cartographicprojection/api";
 var scheme = "http";
 
+
+app.Use(async (context, next) => {
+    var path = context.Request.Path.Value;
+    var pathLower = path.ToLower();
+    // Normalize entire path to lowercase for case-insensitive endpoint matching
+    if (pathLower.StartsWith("/cartographicprojection/api", System.StringComparison.Ordinal))
+    {
+        context.Request.Path = pathLower;
+    }
+    await next();
+});
 app.UsePathBase(basePath);
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -110,3 +121,4 @@ app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
