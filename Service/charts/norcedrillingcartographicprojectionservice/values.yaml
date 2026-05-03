@@ -31,6 +31,8 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  annotations:
+    description: "A microservice for handling CartographicProjection"
 ingress:
   enabled: true
   className: public
