@@ -18,11 +18,12 @@ The WebApp project is a Blazor Server application that provides a UI for the Car
   - Main pages:
     - `/CartographicProjection` — list/edit projections
     - `/CartographicConverter` — run conversions
+    - `/SingleUnitConversion` — convert a single value between unit choices
 
 - Navigation:
   - `Projection Management`: cartographic projections
   - `Contextual Data`: geodetic datums and spheroids
-  - `Calculators`: cartographic conversions
+  - `Calculators`: cartographic conversions and unit conversion
   - `Monitoring`: usage statistics
 
 - Configuration (service endpoints):
@@ -44,11 +45,13 @@ The WebApp project is a Blazor Server application that provides a UI for the Car
 - Browse projections: navigate to `/CartographicProjection` to view, add, edit, or delete projections.
 - Edit projections: the editor separates `Description` from `Configuration`, uses unit-aware inputs for projection parameters, and asks for confirmation if `Close` is selected with unsaved changes.
 - Convert coordinates: navigate to `/CartographicConverter` to enter geodetic/cartographic inputs and convert using selected projection. Components use OSDC unit inputs (e.g., `MudInputWithUnitAdornment`).
+- Convert units: navigate to `/SingleUnitConversion` from the `Calculators` menu to use the reusable UnitConversion calculator.
 
 ## Dependencies
 
 - Packages (`WebApp/WebApp.csproj:1`):
   - `OSDC.UnitConversion.DrillingRazorMudComponents` (unit inputs and selectors)
+  - `OSDC.UnitConversion.WebPages` (single unit conversion calculator)
   - `OSDC.DotnetLibraries.General.DataManagement`
   - `Microsoft.VisualStudio.Azure.Containers.Tools.Targets` (container tooling)
 - Project References:

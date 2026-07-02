@@ -8,5 +8,6 @@ public static class ExternalRazorAssemblies
     [
         typeof(NORCE.Drilling.CartographicProjection.WebPages.CartographicProjection).Assembly,
         typeof(NORCE.Drilling.GeodeticDatum.WebPages.GeodeticDatumMain).Assembly,
+        typeof(OSDC.UnitConversion.WebPages.SingleUnitConversionMain).Assembly,
     ];
 }
