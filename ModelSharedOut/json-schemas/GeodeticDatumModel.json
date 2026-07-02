@@ -1,8 +1,7 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.4",
   "info": {
-    "title": "ModelShared (Service)",
-    "description": "Data model containing model dependencies of the clients of the current microservice (WebApp, ServiceTest)",
+    "title": "Service, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
     "version": "1.0"
   },
   "paths": {
@@ -38,17 +37,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticConversionSet"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticConversionSet"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticConversionSet"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
               }
             }
           }
@@ -74,7 +73,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MetaInfo"
+                    "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
                   }
                 }
               }
@@ -106,7 +105,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeodeticConversionSet"
+                  "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
                 }
               }
             }
@@ -133,17 +132,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticConversionSet"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticConversionSet"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticConversionSet"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
               }
             }
           }
@@ -191,7 +190,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeodeticConversionSetLight"
+                    "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSetLight"
                   }
                 }
               }
@@ -214,7 +213,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeodeticConversionSet"
+                    "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet"
                   }
                 }
               }
@@ -255,17 +254,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticDatum"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticDatum"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticDatum"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
               }
             }
           }
@@ -291,7 +290,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MetaInfo"
+                    "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
                   }
                 }
               }
@@ -323,7 +322,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeodeticDatum"
+                  "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
                 }
               }
             }
@@ -350,17 +349,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticDatum"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticDatum"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/GeodeticDatum"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
               }
             }
           }
@@ -408,7 +407,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeodeticDatumLight"
+                    "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatumLight"
                   }
                 }
               }
@@ -431,7 +430,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeodeticDatum"
+                    "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
                   }
                 }
               }
@@ -452,7 +451,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsageStatisticsGeodeticDatum"
+                  "$ref": "#/components/schemas/Model.UsageStatisticsGeodeticDatum"
                 }
               }
             }
@@ -492,17 +491,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Spheroid"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Spheroid"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Spheroid"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
               }
             }
           }
@@ -528,7 +527,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MetaInfo"
+                    "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
                   }
                 }
               }
@@ -560,7 +559,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Spheroid"
+                  "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
                 }
               }
             }
@@ -587,17 +586,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Spheroid"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Spheroid"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Spheroid"
+                "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
               }
             }
           }
@@ -645,7 +644,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Spheroid"
+                    "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
                   }
                 }
               }
@@ -657,7 +656,7 @@
   },
   "components": {
     "schemas": {
-      "CountPerDay": {
+      "Model.CountPerDay": {
         "type": "object",
         "properties": {
           "Date": {
@@ -668,21 +667,23 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "History": {
+      "Model.History": {
         "type": "object",
         "properties": {
           "Data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CountPerDay"
+              "$ref": "#/components/schemas/Model.CountPerDay"
             },
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "UsageStatisticsGeodeticDatum": {
+      "Model.UsageStatisticsGeodeticDatum": {
         "type": "object",
         "properties": {
           "LastSaved": {
@@ -694,81 +695,82 @@
             "format": "date-span"
           },
           "GetAllSpheroidIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllSpheroidMetaInfoPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetSpheroidByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllSpheroidPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "PostSpheroidPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "PutSpheroidByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "DeleteSpheroidByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticDatumIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticDatumMetaInfoPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetGeodeticDatumByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticDatumLightPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticDatumPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "PostGeodeticDatumPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "PutGeodeticDatumByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "DeleteGeodeticDatumByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticConversionSetIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticConversionSetMetaInfoPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetGeodeticConversionSetByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticConversionSetLightPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "GetAllGeodeticConversionSetPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "PostGeodeticConversionSetPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "PutGeodeticConversionSetByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           },
           "DeleteGeodeticConversionSetByIdPerDay": {
-            "$ref": "#/components/schemas/History"
+            "$ref": "#/components/schemas/Model.History"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "GeodeticConversionSet": {
+      "NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSet": {
         "type": "object",
         "properties": {
           "MetaInfo": {
-            "$ref": "#/components/schemas/MetaInfo"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
           },
           "Name": {
             "type": "string",
@@ -789,25 +791,26 @@
             "nullable": true
           },
           "GeodeticDatum": {
-            "$ref": "#/components/schemas/GeodeticDatum"
+            "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum"
           },
           "OctreeBounds": {
-            "$ref": "#/components/schemas/Bounds"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.Octree.Bounds"
           },
           "GeodeticCoordinates": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GeodeticCoordinate"
+              "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.GeodeticCoordinate"
             },
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "GeodeticConversionSetLight": {
+      "NORCE.Drilling.GeodeticDatum.Model.GeodeticConversionSetLight": {
         "type": "object",
         "properties": {
           "MetaInfo": {
-            "$ref": "#/components/schemas/MetaInfo"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
           },
           "Name": {
             "type": "string",
@@ -835,9 +838,10 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "GeodeticCoordinate": {
+      "NORCE.Drilling.GeodeticDatum.Model.GeodeticCoordinate": {
         "type": "object",
         "properties": {
           "LatitudeWGS84": {
@@ -875,15 +879,16 @@
             "format": "int32"
           },
           "OctreeCode": {
-            "$ref": "#/components/schemas/OctreeCodeLong"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.Octree.OctreeCodeLong"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "GeodeticDatum": {
+      "NORCE.Drilling.GeodeticDatum.Model.GeodeticDatum": {
         "type": "object",
         "properties": {
           "MetaInfo": {
-            "$ref": "#/components/schemas/MetaInfo"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
           },
           "Name": {
             "type": "string",
@@ -907,36 +912,37 @@
             "type": "boolean"
           },
           "Spheroid": {
-            "$ref": "#/components/schemas/Spheroid"
+            "$ref": "#/components/schemas/NORCE.Drilling.GeodeticDatum.Model.Spheroid"
           },
           "DeltaX": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "DeltaY": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "DeltaZ": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "RotationX": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "RotationY": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "RotationZ": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "ScaleFactor": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "GeodeticDatumLight": {
+      "NORCE.Drilling.GeodeticDatum.Model.GeodeticDatumLight": {
         "type": "object",
         "properties": {
           "MetaInfo": {
-            "$ref": "#/components/schemas/MetaInfo"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
           },
           "Name": {
             "type": "string",
@@ -959,13 +965,14 @@
           "IsDefault": {
             "type": "boolean"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "Spheroid": {
+      "NORCE.Drilling.GeodeticDatum.Model.Spheroid": {
         "type": "object",
         "properties": {
           "MetaInfo": {
-            "$ref": "#/components/schemas/MetaInfo"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
           },
           "Name": {
             "type": "string",
@@ -989,52 +996,54 @@
             "type": "boolean"
           },
           "SemiMajorAxis": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "IsSemiMajorAxisSet": {
             "type": "boolean"
           },
           "SemiMinorAxis": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "IsSemiMinorAxisSet": {
             "type": "boolean"
           },
           "Eccentricity": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "IsEccentricitySet": {
             "type": "boolean"
           },
           "SquaredEccentricity": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "IsSquaredEccentricitySet": {
             "type": "boolean"
           },
           "Flattening": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "IsFlatteningSet": {
             "type": "boolean"
           },
           "InverseFlattening": {
-            "$ref": "#/components/schemas/ScalarDrillingProperty"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty"
           },
           "IsInverseFlatteningSet": {
             "type": "boolean"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "ScalarDrillingProperty": {
+      "OSDC.DotnetLibraries.Drilling.DrillingProperties.ScalarDrillingProperty": {
         "type": "object",
         "properties": {
           "DiracDistributionValue": {
-            "$ref": "#/components/schemas/DiracDistribution"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.Statistics.DiracDistribution"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "MetaInfo": {
+      "OSDC.DotnetLibraries.General.DataManagement.MetaInfo": {
         "type": "object",
         "properties": {
           "ID": {
@@ -1053,9 +1062,10 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "Point3D": {
+      "OSDC.DotnetLibraries.General.Math.Point3D": {
         "type": "object",
         "properties": {
           "X": {
@@ -1073,9 +1083,10 @@
             "format": "double",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "Bounds": {
+      "OSDC.DotnetLibraries.General.Octree.Bounds": {
         "type": "object",
         "properties": {
           "MinX": {
@@ -1145,11 +1156,12 @@
             "readOnly": true
           },
           "Center": {
-            "$ref": "#/components/schemas/Point3D"
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.Math.Point3D"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "OctreeCodeLong": {
+      "OSDC.DotnetLibraries.General.Octree.OctreeCodeLong": {
         "type": "object",
         "properties": {
           "Depth": {
@@ -1164,9 +1176,10 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "DiracDistribution": {
+      "OSDC.DotnetLibraries.General.Statistics.DiracDistribution": {
         "type": "object",
         "properties": {
           "MinValue": {
@@ -1182,7 +1195,8 @@
             "format": "double",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
   }
