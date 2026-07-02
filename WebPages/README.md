@@ -11,6 +11,14 @@ It contains the `CartographicProjection`, `CartographicProjectionEdit`, `Cartogr
 - Usage statistics page
 - Host-configurable API access through injected configuration
 
+## UI behavior
+
+- The cartographic projection edit page uses MudBlazor expansion panels to separate `Description` from `Configuration`.
+- The description panel contains metadata and contextual selections such as name, description, geodetic datum, and projection type.
+- The configuration panel contains projection-type-specific parameters, using unit-aware inputs where relevant.
+- The editor uses `Save` and `Close` actions. Closing with unsaved edits opens a confirmation dialog before leaving the editor.
+- The WebApp left-side menu is organized with grouped sections for projection management, contextual data, calculators, and monitoring.
+
 ## Dependencies
 
 - `OSDC.DotnetLibraries.Drilling.WebAppUtils`

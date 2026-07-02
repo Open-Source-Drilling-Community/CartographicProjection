@@ -19,6 +19,12 @@ The WebApp project is a Blazor Server application that provides a UI for the Car
     - `/CartographicProjection` — list/edit projections
     - `/CartographicConverter` — run conversions
 
+- Navigation:
+  - `Projection Management`: cartographic projections
+  - `Contextual Data`: geodetic datums and spheroids
+  - `Calculators`: cartographic conversions
+  - `Monitoring`: usage statistics
+
 - Configuration (service endpoints):
   - `CartographicProjectionHostURL`: CartographicProjection Service base URL
   - `GeodeticDatumHostURL`: GeodeticDatum Service base URL
@@ -35,7 +41,8 @@ The WebApp project is a Blazor Server application that provides a UI for the Car
 
 ## Usage Examples
 
-- Browse projections: navigate to `/CartographicProjection` to view, add, or delete projections. Editing uses `Pages/CartographicProjectionEdit.razor:1`.
+- Browse projections: navigate to `/CartographicProjection` to view, add, edit, or delete projections.
+- Edit projections: the editor separates `Description` from `Configuration`, uses unit-aware inputs for projection parameters, and asks for confirmation if `Close` is selected with unsaved changes.
 - Convert coordinates: navigate to `/CartographicConverter` to enter geodetic/cartographic inputs and convert using selected projection. Components use OSDC unit inputs (e.g., `MudInputWithUnitAdornment`).
 
 ## Dependencies

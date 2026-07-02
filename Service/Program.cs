@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -9,8 +10,13 @@ using NORCE.Drilling.CartographicProjection.Service.Managers;
 using NORCE.Drilling.CartographicProjection.Service.Mcp;
 using NORCE.Drilling.CartographicProjection.Service.Mcp.Tools;
 using System;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
+
+string externalConfigPath = builder.Configuration["CARTOGRAPHICPROJECTION_EXTERNAL_CONFIG"]
+    ?? Path.Combine(SqlConnectionManager.HOME_DIRECTORY, "CartographicProjection.Service.json");
+builder.Configuration.AddJsonFile(externalConfigPath, optional: true, reloadOnChange: true);
 
 // registering the manager of SQLite connections through dependency injection
 builder.Services.AddSingleton(sp =>
@@ -36,6 +42,10 @@ builder.Services.AddSwaggerGen(config =>
     config.CustomSchemaIds(type => type.FullName);
 });
 
+builder.Services.Configure<McpHubOptions>(builder.Configuration.GetSection(McpHubOptions.SectionName));
+builder.Services.AddHttpClient(nameof(McpHubRegistrationService));
+builder.Services.AddHostedService<McpHubRegistrationService>();
+
 // MCP server registrations
 var serverVersion = typeof(SqlConnectionManager).Assembly.GetName().Version?.ToString() ?? "1.0.0";
 
@@ -53,6 +63,26 @@ builder.Services.AddMcpServer(options =>
 }).WithHttpTransport();
 
 builder.Services.AddLegacyMcpTool<PingMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicProjectionIdsMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicProjectionMetaInfoMcpTool>();
+builder.Services.AddLegacyMcpTool<GetCartographicProjectionByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicProjectionLightMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicProjectionMcpTool>();
+builder.Services.AddLegacyMcpTool<PostCartographicProjectionMcpTool>();
+builder.Services.AddLegacyMcpTool<PutCartographicProjectionByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<DeleteCartographicProjectionByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicConversionSetIdsMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicConversionSetMetaInfoMcpTool>();
+builder.Services.AddLegacyMcpTool<GetCartographicConversionSetByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicConversionSetLightMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicConversionSetMcpTool>();
+builder.Services.AddLegacyMcpTool<PostCartographicConversionSetMcpTool>();
+builder.Services.AddLegacyMcpTool<PutCartographicConversionSetByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<DeleteCartographicConversionSetByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicProjectionTypeIdsMcpTool>();
+builder.Services.AddLegacyMcpTool<GetCartographicProjectionTypeByIdMcpTool>();
+builder.Services.AddLegacyMcpTool<GetAllCartographicProjectionTypeMcpTool>();
+builder.Services.AddLegacyMcpTool<GetCartographicProjectionUsageStatisticsMcpTool>();
 
 // end MCP server
 

@@ -25,9 +25,51 @@ The Service project hosts the CartographicProjection HTTP API. It exposes endpoi
 
 - Docker:
   - Build: `docker build -t norcedrillingcartographicprojectionservice -f Service/Dockerfile .`
-  - Run: `docker run -p 8080:8080 -e GeodeticDatumHostURL=https://dev.digiwells.no/ -v %CD%/home:/app/../home norcedrillingcartographicprojectionservice`
+  - Run: `docker run -p 8080:8080 -e GeodeticDatumHostURL=https://dev.digiwells.no/ -v %CD%/home:/home norcedrillingcartographicprojectionservice`
     - On Linux/macOS, replace `%CD%` with `$(pwd)`.
-    - Volume maps the SQLite DB to `home/CartographicProjection.db` in your workspace.
+    - Volume maps the SQLite DB, optional external configuration, and generated MCP hub instance id to `home/` in your workspace.
+    - The Docker image reads optional service configuration from `/home/CartographicProjection.Service.json`. Override this path with `CARTOGRAPHICPROJECTION_EXTERNAL_CONFIG` if needed.
+
+External configuration example:
+
+```json
+{
+  "McpHub": {
+    "Enabled": true,
+    "HubBaseUrl": "https://mcp-hub.example.com/api",
+    "RegistrationEndpoint": "McpMicroservice",
+    "RetryIntervalSeconds": 60,
+    "PublicBaseUrl": "https://dev.digiwells.no",
+    "ServiceName": "CartographicProjection",
+    "InstanceId": "",
+    "UnregisterOnShutdown": true
+  }
+}
+```
+
+## MCP Server
+
+The service exposes a Model Context Protocol endpoint alongside the REST API:
+
+- Streamable HTTP transport: `/CartographicProjection/api/mcp`
+- WebSocket transport: `/CartographicProjection/api/mcp/ws`
+
+The MCP tool surface mirrors the REST API:
+
+- `ping`
+- CartographicProjection: `cartographic_projection.get_all_ids`, `cartographic_projection.get_all_meta_info`, `cartographic_projection.get_by_id`, `cartographic_projection.get_all_light`, `cartographic_projection.get_all`, `cartographic_projection.create`, `cartographic_projection.update_by_id`, `cartographic_projection.delete_by_id`
+- CartographicConversionSet: `cartographic_conversion_set.get_all_ids`, `cartographic_conversion_set.get_all_meta_info`, `cartographic_conversion_set.get_by_id`, `cartographic_conversion_set.get_all_light`, `cartographic_conversion_set.get_all`, `cartographic_conversion_set.create`, `cartographic_conversion_set.update_by_id`, `cartographic_conversion_set.delete_by_id`
+- CartographicProjectionType: `cartographic_projection_type.get_all_ids`, `cartographic_projection_type.get_by_id`, `cartographic_projection_type.get_all`
+- Usage statistics: `cartographic_projection_usage_statistics.get`
+
+The `create` and `update_by_id` tools expect the same JSON object body as the corresponding REST endpoints, wrapped in a `cartographicProjection` or `cartographicConversionSet` argument.
+
+When `McpHub:Enabled` is true, the service registers itself on the configured MCP hub with a fixed service type id, a configured or persisted instance id, and MCP endpoint URLs derived from `PublicBaseUrl`:
+
+- `PublicBaseUrl + "/CartographicProjection/api/mcp"`
+- `PublicBaseUrl` converted to `ws`/`wss` plus `"/CartographicProjection/api/mcp/ws"`
+
+If `HubBaseUrl` or `PublicBaseUrl` is missing, registration is skipped. If the hub is configured but unreachable, registration is retried every `RetryIntervalSeconds` seconds. On graceful shutdown, the service attempts to unregister its instance when `UnregisterOnShutdown` is true.
 
 ## Usage Examples
 

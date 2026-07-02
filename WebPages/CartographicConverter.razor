@@ -17,7 +17,7 @@
         <MudForm>
             <MudPaper Class="p-4 mb-4" Elevation="2">
                 <MudContainer Class="d-flex flex-column" style="max-width: 500px; width: 100%;">
-                    <MudText Typo="Typo.h6" Class="mb-2">Geodetic Datum ? Cartographic Projection</MudText>
+                    <MudText Typo="Typo.h6" Class="mb-2">Geodetic Datum to Cartographic Projection</MudText>
                     <MudGrid>
                         <MudItem xs="12" sm="6" md="6" lg="6">
                             <MudInputAngleWithUnitAdornment QuantityLabel="Sexagesimal Latitude (Datum)"
@@ -124,7 +124,7 @@
             </MudPaper>
             <MudPaper Class="p-4 mb-4" Elevation="2">
                 <MudContainer Class="d-flex flex-column" style="max-width: 500px; width: 100%;">
-                    <MudText Typo="Typo.h6" Class="mb-2">WGS84 ? Cartographic Projection</MudText>
+                    <MudText Typo="Typo.h6" Class="mb-2">WGS84 to Cartographic Projection</MudText>
                     <MudGrid>
                         <MudItem xs="12" sm="6" md="6" lg="6">
                             <MudInputAngleWithUnitAdornment QuantityLabel="Sexagesimal Latitude (WGS84)"
@@ -231,7 +231,7 @@
             </MudPaper>
 
             <MudPaper Class="p-4" Elevation="2">
-                <MudText Typo="Typo.h6" Class="mb-2">Cartographic Projection ? Geodetic Datum</MudText>
+                <MudText Typo="Typo.h6" Class="mb-2">Cartographic Projection to Geodetic Datum</MudText>
                 <MudContainer Class="d-flex flex-column" style="max-width: 500px; width: 100%;">
 
                     <MudGrid>
@@ -346,7 +346,7 @@
 </MudUnitAndReferenceChoiceTag>
 
 @code {
-    // Input fields for datum ? cartographic projection
+    // Input fields for datum to cartographic projection
     private double? fromLatitudeDatum;
     private double? fromLongitudeDatum;
     private double? fromVerticalDepthGeodeticDatum;
@@ -359,7 +359,7 @@
     private double? longitudeWGS84FromDatum;
     private double? verticalDepthGeodeticWGS84FromDatum;
 
-    // Input fields for WGS84 ? cartographic projection
+    // Input fields for WGS84 to cartographic projection
     private double? fromLatitudeWGS84;
     private double? fromLongitudeWGS84;
     private double? fromVerticalDepthGeodeticWGS84;
@@ -372,7 +372,7 @@
     private double? longitudeDatumFromWGS84;
     private double? verticalDepthGeodeticDatumFromWGS84;
 
-    // Input fields for cartographic projection ? latlong
+    // Input fields for cartographic projection to lat/long
     private CartographicProjectionLight? sourceCartographicProjection;
     private double? fromNorthing;
     private double? fromEasting;

@@ -26,6 +26,26 @@ internal static class McpToolArgumentHelpers
         };
     }
 
+    public static JsonObject CreateStringSchema(string key)
+    {
+        return new JsonObject
+        {
+            ["type"] = "object",
+            ["properties"] = new JsonObject
+            {
+                [key] = new JsonObject
+                {
+                    ["type"] = "string"
+                }
+            },
+            ["required"] = new JsonArray
+            {
+                key
+            },
+            ["additionalProperties"] = false
+        };
+    }
+
     public static bool TryParseGuid(JsonObject? arguments, string key, out Guid value, out JsonNode? error)
     {
         value = Guid.Empty;
@@ -41,6 +61,28 @@ internal static class McpToolArgumentHelpers
         if (!Guid.TryParse(node.ToString(), out value))
         {
             error = McpToolResponses.CreateValidationError($"Argument '{key}' must be a valid UUID.");
+            return false;
+        }
+
+        return true;
+    }
+
+    public static bool TryParseString(JsonObject? arguments, string key, out string value, out JsonNode? error)
+    {
+        value = string.Empty;
+        error = null;
+
+        var node = arguments?[key];
+        if (node is null)
+        {
+            error = McpToolResponses.CreateValidationError($"Argument '{key}' is required.");
+            return false;
+        }
+
+        value = node.ToString();
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            error = McpToolResponses.CreateValidationError($"Argument '{key}' must be a non-empty string.");
             return false;
         }
 
